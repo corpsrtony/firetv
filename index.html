@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire TV - TV en Vivo Gratis</title>
+    <meta name="description" content="Descarga Fire TV y disfruta canales de televisión en vivo completamente gratis.">
+    <meta property="og:title" content="Fire TV - TV en Vivo Gratis">
+    <meta property="og:description" content="Canales de TV en vivo de todo el mundo, completamente gratis.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root{--bg:#06080f;--surface:#0d1120;--surface2:#141a2e;--primary:#ff6d00;--accent:#ff9800;--glow:rgba(255,109,0,0.2);--text:#eef2ff;--text2:#7a85a0;--glass:rgba(13,17,32,0.7)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+        .bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(255,109,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,109,0,0.03) 1px,transparent 1px);background-size:60px 60px;z-index:0}
+        .bg-orb{position:fixed;border-radius:50%;filter:blur(120px);z-index:0;animation:orbFloat 20s ease-in-out infinite alternate}
+        .bg-orb-1{width:500px;height:500px;background:rgba(255,109,0,0.08);top:-150px;right:-100px}
+        .bg-orb-2{width:400px;height:400px;background:rgba(255,60,0,0.05);bottom:-100px;left:-100px;animation-delay:-10s}
+        .bg-orb-3{width:300px;height:300px;background:rgba(255,152,0,0.04);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-5s}
+        @keyframes orbFloat{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-20px) scale(1.1)}100%{transform:translate(-20px,30px) scale(.95)}}
+
+        nav{position:fixed;top:0;width:100%;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;z-index:100;background:rgba(6,8,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,109,0,0.06)}
+        .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+        .nav-brand i{font-size:24px;color:var(--primary);filter:drop-shadow(0 0 8px var(--glow))}
+        .nav-brand span{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-download{padding:10px 24px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:8px;transition:all .3s;box-shadow:0 4px 20px var(--glow)}
+        .nav-download:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--glow)}
+
+        .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;z-index:1}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:var(--surface2);border:1px solid rgba(255,109,0,0.15);border-radius:50px;font-size:13px;color:var(--accent);font-weight:600;margin-bottom:32px;animation:fadeUp .8s ease}
+        .hero-badge .dot{width:8px;height:8px;background:var(--primary);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+        .hero h1{font-family:'Sora',sans-serif;font-size:clamp(42px,8vw,80px);font-weight:800;line-height:1.05;margin-bottom:24px;animation:fadeUp .8s ease .1s both}
+        .hero h1 .highlight{background:linear-gradient(135deg,var(--primary),var(--accent),#ffcc02);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:shimmer 4s linear infinite}
+        @keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+        .hero p{font-size:clamp(16px,2.5vw,20px);color:var(--text2);max-width:520px;line-height:1.6;margin-bottom:48px;animation:fadeUp .8s ease .2s both}
+        .hero-buttons{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s ease .3s both}
+
+        .btn-main{padding:16px 36px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:60px;font-family:'Sora',sans-serif;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:10px;transition:all .3s;box-shadow:0 8px 40px var(--glow)}
+        .btn-main:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 50px rgba(255,109,0,0.35)}
+        .btn-main i{font-size:18px}
+        .btn-secondary{padding:16px 36px;background:var(--surface2);color:var(--text);border:1px solid rgba(255,109,0,0.12);border-radius:60px;font-family:'Sora',sans-serif;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:10px;transition:all .3s}
+        .btn-secondary:hover{border-color:var(--primary);background:rgba(255,109,0,0.05);transform:translateY(-2px)}
+
+        .features{padding:80px 24px;position:relative;z-index:1}
+        .features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+        .feature-card{background:var(--glass);backdrop-filter:blur(10px);border:1px solid rgba(255,109,0,0.06);border-radius:20px;padding:32px 28px;transition:all .4s}
+        .feature-card:hover{border-color:rgba(255,109,0,0.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+        .feature-icon{width:52px;height:52px;border-radius:14px;background:rgba(255,109,0,0.1);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--primary);margin-bottom:18px}
+        .feature-card h3{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px}
+        .feature-card p{font-size:14px;color:var(--text2);line-height:1.6}
+
+        .stats-section{padding:60px 24px;position:relative;z-index:1}
+        .stats-row{max-width:900px;margin:0 auto;display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+        .stat-item{text-align:center}
+        .stat-item .number{font-family:'Sora',sans-serif;font-size:48px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .stat-item .label{font-size:14px;color:var(--text2);margin-top:4px}
+
+        .cta-section{padding:80px 24px;text-align:center;position:relative;z-index:1}
+        .cta-box{max-width:700px;margin:0 auto;background:linear-gradient(135deg,rgba(255,109,0,0.08),rgba(255,152,0,0.04));border:1px solid rgba(255,109,0,0.12);border-radius:28px;padding:60px 40px}
+        .cta-box h2{font-family:'Sora',sans-serif;font-size:clamp(28px,4vw,38px);font-weight:800;margin-bottom:16px}
+        .cta-box p{color:var(--text2);font-size:16px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+
+        footer{padding:40px 24px;text-align:center;border-top:1px solid rgba(255,109,0,0.06);position:relative;z-index:1}
+        footer .social{display:flex;justify-content:center;gap:16px;margin-bottom:16px}
+        footer .social a{width:40px;height:40px;border-radius:50%;background:var(--surface2);border:1px solid rgba(255,109,0,0.08);display:flex;align-items:center;justify-content:center;color:var(--text2);text-decoration:none;font-size:16px;transition:all .3s}
+        footer .social a:hover{color:var(--primary);border-color:var(--primary);transform:translateY(-2px)}
+        footer p{color:var(--text2);font-size:13px}
+        .dev-tag{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 14px;background:var(--surface2);border:1px solid rgba(255,109,0,0.08);border-radius:20px;font-size:11px;color:var(--text2);transition:all .3s}
+        .dev-tag:hover{border-color:var(--primary);color:var(--accent)}
+        .dev-tag i{color:var(--primary);font-size:12px}
+
+        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @media(max-width:768px){nav{padding:12px 16px}.nav-brand span{font-size:17px}.nav-download span{display:none}.hero{padding:100px 20px 60px}.hero h1{font-size:36px}.cta-box{padding:40px 24px}.stats-row{gap:32px}.stat-item .number{font-size:36px}}
+        @media(max-width:480px){.hero-buttons{flex-direction:column;align-items:center}.btn-main,.btn-secondary{width:100%;max-width:300px;justify-content:center}.features-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+
+<nav>
+    <a href="#" class="nav-brand"><i class="fas fa-fire"></i><span>Fire TV</span></a>
+    <a href="#download" class="nav-download"><i class="fas fa-download"></i><span>Descargar</span></a>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge"><div class="dot"></div>Disponible ahora</div>
+    <h1>Tu televisión<br><span class="highlight">sin límites</span></h1>
+    <p>Canales de TV en vivo de todo el mundo, completamente gratis. Sin suscripciones, sin complicaciones.</p>
+    <div class="hero-buttons">
+        <a href="#download" class="btn-main"><i class="fab fa-android"></i>Descargar APK</a>
+        <a href="#features" class="btn-secondary"><i class="fas fa-play-circle"></i>Conoce más</a>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-globe-americas"></i></div><h3>Canales internacionales</h3><p>Accede a canales de múltiples países organizados por región. Siempre hay algo nuevo para ver.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h3>Streaming instantáneo</h3><p>Reproducción rápida y fluida. Solo toca un canal y comienza a disfrutar en segundos.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><h3>Seguro y confiable</h3><p>Contenido protegido y actualizaciones constantes para la mejor experiencia.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Diseño optimizado</h3><p>Interfaz moderna y fácil de usar. Pensada para que encuentres lo que quieres rápido.</p></div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="stats-row">
+        <div class="stat-item"><div class="number">100+</div><div class="label">Canales en vivo</div></div>
+        <div class="stat-item"><div class="number">20+</div><div class="label">Países disponibles</div></div>
+        <div class="stat-item"><div class="number">24/7</div><div class="label">Siempre activo</div></div>
+    </div>
+</section>
+
+<section class="cta-section" id="download">
+    <div class="cta-box">
+        <h2>Descarga <span style="color:var(--primary)">Fire TV</span> ahora</h2>
+        <p>Disponible para Android. Descarga el APK directamente e instálalo en tu dispositivo.</p>
+        <a href="https://github.com/CorpSRTony/firetv/releases/latest/download/FireTV.apk" class="btn-main" style="display:inline-flex;margin:0 auto">
+            <i class="fas fa-download"></i>Descargar última versión
+        </a>
+        <p style="margin-top:20px;font-size:12px;color:var(--text2)"><i class="fas fa-info-circle"></i> Versión actual: <strong>1.0</strong></p>
+    </div>
+</section>
+
+<footer>
+    <div class="social">
+        <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>&copy; 2026 Fire TV. Todos los derechos reservados.</p>
+    <div class="dev-tag"><i class="fas fa-code"></i> Desarrollado por CorpSRTony</div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});});});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.feature-card,.stat-item,.cta-box').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='all 0.6s ease';observer.observe(el);});
+</script>
+</body>
+</html>
