@@ -3,145 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire TV - TV en Vivo Gratis</title>
-    <meta name="description" content="Descarga Fire TV y disfruta canales de televisión en vivo completamente gratis.">
-    <meta property="og:title" content="Fire TV - TV en Vivo Gratis">
-    <meta property="og:description" content="Canales de TV en vivo de todo el mundo, completamente gratis.">
+    <title>Fire TV - TV en Vivo, Películas, Radio y Más</title>
+    <meta name="description" content="Descarga Fire TV: canales en vivo, películas, series, anime, doramas, radio y contenido a la carta. Gratis para Android.">
+    <meta property="og:title" content="Fire TV - Entretenimiento Sin Límites">
+    <meta property="og:description" content="TV en vivo, películas, series, anime, doramas, radio y más. Gratis.">
     <meta property="og:type" content="website">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root{--bg:#06080f;--surface:#0d1120;--surface2:#141a2e;--primary:#ff6d00;--accent:#ff9800;--glow:rgba(255,109,0,0.2);--text:#eef2ff;--text2:#7a85a0;--glass:rgba(13,17,32,0.7)}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-        .bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(255,109,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,109,0,0.03) 1px,transparent 1px);background-size:60px 60px;z-index:0}
-        .bg-orb{position:fixed;border-radius:50%;filter:blur(120px);z-index:0;animation:orbFloat 20s ease-in-out infinite alternate}
-        .bg-orb-1{width:500px;height:500px;background:rgba(255,109,0,0.08);top:-150px;right:-100px}
-        .bg-orb-2{width:400px;height:400px;background:rgba(255,60,0,0.05);bottom:-100px;left:-100px;animation-delay:-10s}
-        .bg-orb-3{width:300px;height:300px;background:rgba(255,152,0,0.04);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-5s}
-        @keyframes orbFloat{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-20px) scale(1.1)}100%{transform:translate(-20px,30px) scale(.95)}}
+        :root {
+            --bg: #05070e;
+            --surface: #0a0f1e;
+            --surface2: #111830;
+            --surface3: #1a2242;
+            --primary: #ff5e00;
+            --primary-light: #ff8534;
+            --accent: #ffb347;
+            --accent2: #ff3d00;
+            --glow: rgba(255,94,0,0.25);
+            --glow-soft: rgba(255,94,0,0.08);
+            --text: #f0f2fa;
+            --text2: #6b779a;
+            --text3: #3d4a6e;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family:'Outfit',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
 
-        nav{position:fixed;top:0;width:100%;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;z-index:100;background:rgba(6,8,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,109,0,0.06)}
-        .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-        .nav-brand i{font-size:24px;color:var(--primary);filter:drop-shadow(0 0 8px var(--glow))}
-        .nav-brand span{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .nav-download{padding:10px 24px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:8px;transition:all .3s;box-shadow:0 4px 20px var(--glow)}
-        .nav-download:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--glow)}
+        /* === BACKGROUND === */
+        .bg-noise { position:fixed; inset:0; z-index:0; opacity:0.03; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        .bg-gradient { position:fixed; inset:0; z-index:0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,94,0,0.07) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 100%, rgba(255,61,0,0.04) 0%, transparent 50%), radial-gradient(ellipse 50% 40% at 10% 60%, rgba(255,133,52,0.03) 0%, transparent 50%); }
 
-        .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;z-index:1}
-        .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:var(--surface2);border:1px solid rgba(255,109,0,0.15);border-radius:50px;font-size:13px;color:var(--accent);font-weight:600;margin-bottom:32px;animation:fadeUp .8s ease}
-        .hero-badge .dot{width:8px;height:8px;background:var(--primary);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-        .hero h1{font-family:'Sora',sans-serif;font-size:clamp(42px,8vw,80px);font-weight:800;line-height:1.05;margin-bottom:24px;animation:fadeUp .8s ease .1s both}
-        .hero h1 .highlight{background:linear-gradient(135deg,var(--primary),var(--accent),#ffcc02);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:shimmer 4s linear infinite}
-        @keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
-        .hero p{font-size:clamp(16px,2.5vw,20px);color:var(--text2);max-width:520px;line-height:1.6;margin-bottom:48px;animation:fadeUp .8s ease .2s both}
-        .hero-buttons{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s ease .3s both}
+        /* === NAV === */
+        nav { position:fixed; top:0; width:100%; padding:14px 28px; display:flex; align-items:center; justify-content:space-between; z-index:100; background:rgba(5,7,14,0.85); backdrop-filter:blur(24px); border-bottom:1px solid rgba(255,94,0,0.06); transition: all 0.3s; }
+        nav.scrolled { padding:10px 28px; box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
+        .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+        .nav-brand .logo-fire { font-size:26px; filter:drop-shadow(0 0 10px var(--glow)); }
+        .nav-brand span { font-size:22px; font-weight:900; letter-spacing:-0.5px; background:linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .nav-links { display:flex; align-items:center; gap:8px; }
+        .nav-links a { color:var(--text2); text-decoration:none; font-size:14px; font-weight:500; padding:8px 16px; border-radius:50px; transition:all 0.3s; }
+        .nav-links a:hover { color:var(--text); background:rgba(255,94,0,0.08); }
+        .nav-cta { padding:10px 22px; background:linear-gradient(135deg,var(--primary),var(--primary-light)); color:#fff; border:none; border-radius:50px; font-family:'Outfit',sans-serif; font-size:14px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all 0.3s; box-shadow:0 4px 20px var(--glow); }
+        .nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 30px var(--glow); }
+        .nav-toggle { display:none; background:none; border:none; color:var(--text); font-size:22px; cursor:pointer; padding:8px; }
 
-        .btn-main{padding:16px 36px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:60px;font-family:'Sora',sans-serif;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:10px;transition:all .3s;box-shadow:0 8px 40px var(--glow)}
-        .btn-main:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 50px rgba(255,109,0,0.35)}
-        .btn-main i{font-size:18px}
-        .btn-secondary{padding:16px 36px;background:var(--surface2);color:var(--text);border:1px solid rgba(255,109,0,0.12);border-radius:60px;font-family:'Sora',sans-serif;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:10px;transition:all .3s}
-        .btn-secondary:hover{border-color:var(--primary);background:rgba(255,109,0,0.05);transform:translateY(-2px)}
+        /* === HERO === */
+        .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:130px 24px 80px; position:relative; z-index:1; }
+        .hero-tag { display:inline-flex; align-items:center; gap:8px; padding:6px 18px; background:var(--surface2); border:1px solid rgba(255,94,0,0.12); border-radius:50px; font-size:12px; color:var(--accent); font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:28px; animation:fadeUp 0.7s ease; }
+        .hero-tag .pulse-dot { width:7px; height:7px; background:var(--primary); border-radius:50%; animation:pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+        .hero h1 { font-size:clamp(38px,7.5vw,82px); font-weight:900; line-height:1.02; letter-spacing:-2px; margin-bottom:20px; animation:fadeUp 0.7s ease 0.1s both; }
+        .hero h1 .gradient-text { background:linear-gradient(135deg,var(--primary),var(--accent),#ffe082); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-size:300% auto; animation:shimmer 5s linear infinite; }
+        @keyframes shimmer { 0%{background-position:0%} 100%{background-position:300%} }
+        .hero-sub { font-size:clamp(15px,2.2vw,19px); color:var(--text2); max-width:540px; line-height:1.65; margin-bottom:40px; animation:fadeUp 0.7s ease 0.2s both; }
+        .hero-actions { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; animation:fadeUp 0.7s ease 0.3s both; }
+        .btn-primary { padding:16px 34px; background:linear-gradient(135deg,var(--primary),var(--accent2)); color:#fff; border:none; border-radius:60px; font-family:'Outfit',sans-serif; font-size:16px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all 0.35s; box-shadow:0 8px 36px var(--glow); }
+        .btn-primary:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 14px 50px rgba(255,94,0,0.35); }
+        .btn-ghost { padding:16px 34px; background:transparent; color:var(--text); border:1.5px solid rgba(255,94,0,0.18); border-radius:60px; font-family:'Outfit',sans-serif; font-size:16px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all 0.35s; }
+        .btn-ghost:hover { border-color:var(--primary); background:rgba(255,94,0,0.05); transform:translateY(-2px); }
 
-        .features{padding:80px 24px;position:relative;z-index:1}
-        .features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-        .feature-card{background:var(--glass);backdrop-filter:blur(10px);border:1px solid rgba(255,109,0,0.06);border-radius:20px;padding:32px 28px;transition:all .4s}
-        .feature-card:hover{border-color:rgba(255,109,0,0.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-        .feature-icon{width:52px;height:52px;border-radius:14px;background:rgba(255,109,0,0.1);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--primary);margin-bottom:18px}
-        .feature-card h3{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px}
-        .feature-card p{font-size:14px;color:var(--text2);line-height:1.6}
+        .hero-scroll { margin-top:50px; animation:fadeUp 0.7s ease 0.5s both; }
+        .hero-scroll a { color:var(--text3); font-size:13px; text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:6px; transition:color 0.3s; }
+        .hero-scroll a:hover { color:var(--primary); }
+        .hero-scroll i { animation:bounceDown 2s ease-in-out infinite; }
+        @keyframes bounceDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
-        .stats-section{padding:60px 24px;position:relative;z-index:1}
-        .stats-row{max-width:900px;margin:0 auto;display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
-        .stat-item{text-align:center}
-        .stat-item .number{font-family:'Sora',sans-serif;font-size:48px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .stat-item .label{font-size:14px;color:var(--text2);margin-top:4px}
+        /* === SECTION TITLES === */
+        .section-header { text-align:center; margin-bottom:50px; }
+        .section-header .label { display:inline-block; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--primary); margin-bottom:12px; padding:5px 14px; background:rgba(255,94,0,0.08); border-radius:6px; }
+        .section-header h2 { font-size:clamp(28px,5vw,46px); font-weight:800; letter-spacing:-1px; }
+        .section-header p { color:var(--text2); font-size:16px; max-width:500px; margin:12px auto 0; line-height:1.6; }
 
-        .cta-section{padding:80px 24px;text-align:center;position:relative;z-index:1}
-        .cta-box{max-width:700px;margin:0 auto;background:linear-gradient(135deg,rgba(255,109,0,0.08),rgba(255,152,0,0.04));border:1px solid rgba(255,109,0,0.12);border-radius:28px;padding:60px 40px}
-        .cta-box h2{font-family:'Sora',sans-serif;font-size:clamp(28px,4vw,38px);font-weight:800;margin-bottom:16px}
-        .cta-box p{color:var(--text2);font-size:16px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+        /* === CONTENT CATEGORIES === */
+        .categories { padding:80px 24px; position:relative; z-index:1; }
+        .cat-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+        .cat-card { position:relative; border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:3/4; cursor:pointer; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .cat-card:hover { transform:translateY(-6px) scale(1.02); }
+        .cat-card .cat-bg { position:absolute; inset:0; transition:transform 0.5s; }
+        .cat-card:hover .cat-bg { transform:scale(1.08); }
+        .cat-card .cat-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(5,7,14,0.95) 0%,rgba(5,7,14,0.3) 50%,rgba(5,7,14,0.1) 100%); z-index:1; }
+        .cat-card .cat-content { position:absolute; bottom:0; left:0; right:0; padding:24px 20px; z-index:2; }
+        .cat-card .cat-icon { width:44px; height:44px; border-radius:12px; background:rgba(255,94,0,0.15); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--primary); margin-bottom:12px; border:1px solid rgba(255,94,0,0.1); }
+        .cat-card h3 { font-size:18px; font-weight:700; margin-bottom:4px; }
+        .cat-card p { font-size:12px; color:var(--text2); line-height:1.5; }
 
-        footer{padding:40px 24px;text-align:center;border-top:1px solid rgba(255,109,0,0.06);position:relative;z-index:1}
-        footer .social{display:flex;justify-content:center;gap:16px;margin-bottom:16px}
-        footer .social a{width:40px;height:40px;border-radius:50%;background:var(--surface2);border:1px solid rgba(255,109,0,0.08);display:flex;align-items:center;justify-content:center;color:var(--text2);text-decoration:none;font-size:16px;transition:all .3s}
-        footer .social a:hover{color:var(--primary);border-color:var(--primary);transform:translateY(-2px)}
-        footer p{color:var(--text2);font-size:13px}
-        .dev-tag{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 14px;background:var(--surface2);border:1px solid rgba(255,109,0,0.08);border-radius:20px;font-size:11px;color:var(--text2);transition:all .3s}
-        .dev-tag:hover{border-color:var(--primary);color:var(--accent)}
-        .dev-tag i{color:var(--primary);font-size:12px}
+        .cat-tv { background:linear-gradient(135deg,#1a1040,#0d1b3e,#0a1628); }
+        .cat-movies { background:linear-gradient(135deg,#2a0a0a,#1a0505,#120808); }
+        .cat-radio { background:linear-gradient(135deg,#0a2a1a,#051a10,#081208); }
+        .cat-series { background:linear-gradient(135deg,#2a1a00,#1a1005,#121008); }
+        .cat-anime { background:linear-gradient(135deg,#1a0030,#100520,#0a0818); }
+        .cat-doramas { background:linear-gradient(135deg,#300020,#200510,#180810); }
 
-        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-        @media(max-width:768px){nav{padding:12px 16px}.nav-brand span{font-size:17px}.nav-download span{display:none}.hero{padding:100px 20px 60px}.hero h1{font-size:36px}.cta-box{padding:40px 24px}.stats-row{gap:32px}.stat-item .number{font-size:36px}}
-        @media(max-width:480px){.hero-buttons{flex-direction:column;align-items:center}.btn-main,.btn-secondary{width:100%;max-width:300px;justify-content:center}.features-grid{grid-template-columns:1fr}}
+        /* === FEATURES === */
+        .features { padding:80px 24px; position:relative; z-index:1; }
+        .feat-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .feat-card { background:var(--surface); border:1px solid rgba(255,94,0,0.05); border-radius:var(--radius-lg); padding:32px 26px; transition:all 0.4s; position:relative; overflow:hidden; }
+        .feat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--primary),transparent); opacity:0; transition:opacity 0.4s; }
+        .feat-card:hover { border-color:rgba(255,94,0,0.12); transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+        .feat-card:hover::before { opacity:1; }
+        .feat-icon { width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,rgba(255,94,0,0.12),rgba(255,94,0,0.04)); display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--primary); margin-bottom:18px; }
+        .feat-card h3 { font-size:17px; font-weight:700; margin-bottom:8px; }
+        .feat-card p { font-size:14px; color:var(--text2); line-height:1.6; }
+
+        /* === STATS === */
+        .stats { padding:60px 24px; position:relative; z-index:1; }
+        .stats-container { max-width:900px; margin:0 auto; display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+        .stat-box { flex:1; min-width:150px; text-align:center; padding:28px 20px; background:var(--surface); border:1px solid rgba(255,94,0,0.05); border-radius:var(--radius); }
+        .stat-box .num { font-size:clamp(32px,5vw,48px); font-weight:900; background:linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .stat-box .txt { font-size:13px; color:var(--text2); margin-top:4px; font-weight:500; }
+
+        /* === REQUEST SECTION === */
+        .request { padding:80px 24px; position:relative; z-index:1; }
+        .request-container { max-width:700px; margin:0 auto; }
+        .request-box { background:var(--surface); border:1px solid rgba(255,94,0,0.08); border-radius:var(--radius-xl); padding:48px 40px; position:relative; overflow:hidden; }
+        .request-box::before { content:''; position:absolute; top:-1px; left:20%; right:20%; height:2px; background:linear-gradient(90deg,transparent,var(--primary),transparent); }
+        .request-form { display:flex; flex-direction:column; gap:16px; margin-top:32px; }
+        .form-group { display:flex; flex-direction:column; gap:6px; }
+        .form-group label { font-size:13px; font-weight:600; color:var(--text2); letter-spacing:0.3px; }
+        .form-group input, .form-group select, .form-group textarea { background:var(--surface2); border:1.5px solid rgba(255,94,0,0.08); border-radius:12px; padding:14px 16px; color:var(--text); font-family:'Outfit',sans-serif; font-size:15px; transition:all 0.3s; outline:none; resize:vertical; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(255,94,0,0.1); }
+        .form-group select { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b779a' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; }
+        .form-group select option { background:var(--surface2); color:var(--text); }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .btn-submit { margin-top:8px; padding:16px 32px; background:linear-gradient(135deg,var(--primary),var(--accent2)); color:#fff; border:none; border-radius:60px; font-family:'Outfit',sans-serif; font-size:16px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:10px; transition:all 0.35s; box-shadow:0 8px 30px var(--glow); }
+        .btn-submit:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(255,94,0,0.3); }
+        .form-note { font-size:12px; color:var(--text3); text-align:center; margin-top:10px; }
+
+        /* === DOWNLOAD CTA === */
+        .download { padding:80px 24px 60px; text-align:center; position:relative; z-index:1; }
+        .dl-box { max-width:750px; margin:0 auto; background:linear-gradient(135deg,rgba(255,94,0,0.06),rgba(255,61,0,0.03)); border:1px solid rgba(255,94,0,0.1); border-radius:var(--radius-xl); padding:56px 40px; position:relative; overflow:hidden; }
+        .dl-box::after { content:''; position:absolute; bottom:-80px; right:-80px; width:250px; height:250px; background:radial-gradient(circle,rgba(255,94,0,0.08),transparent 70%); border-radius:50%; }
+        .dl-box h2 { font-size:clamp(26px,4.5vw,40px); font-weight:800; margin-bottom:14px; letter-spacing:-0.5px; }
+        .dl-box p { color:var(--text2); font-size:16px; margin-bottom:28px; max-width:460px; margin-left:auto; margin-right:auto; line-height:1.6; }
+        .dl-platforms { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:24px; }
+        .dl-chip { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; background:var(--surface2); border:1px solid rgba(255,94,0,0.06); border-radius:50px; font-size:12px; color:var(--text2); font-weight:500; }
+        .dl-chip i { color:var(--primary); }
+        .version-tag { margin-top:20px; font-size:12px; color:var(--text3); }
+        .version-tag strong { color:var(--text2); }
+
+        /* === FOOTER === */
+        footer { padding:40px 24px; text-align:center; border-top:1px solid rgba(255,94,0,0.04); position:relative; z-index:1; }
+        .footer-social { display:flex; justify-content:center; gap:12px; margin-bottom:16px; }
+        .footer-social a { width:40px; height:40px; border-radius:50%; background:var(--surface2); border:1px solid rgba(255,94,0,0.06); display:flex; align-items:center; justify-content:center; color:var(--text2); text-decoration:none; font-size:16px; transition:all 0.3s; }
+        .footer-social a:hover { color:var(--primary); border-color:var(--primary); transform:translateY(-2px); box-shadow:0 4px 16px var(--glow-soft); }
+        footer p { color:var(--text3); font-size:12px; }
+        .dev-badge { display:inline-flex; align-items:center; gap:6px; margin-top:10px; padding:5px 14px; background:var(--surface2); border:1px solid rgba(255,94,0,0.06); border-radius:20px; font-size:11px; color:var(--text3); }
+        .dev-badge i { color:var(--primary); }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+        .reveal { opacity:0; transform:translateY(28px); transition:all 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.active { opacity:1; transform:translateY(0); }
+
+        /* === MOBILE NAV === */
+        .mobile-menu { display:none; position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(5,7,14,0.97); backdrop-filter:blur(24px); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+        .mobile-menu.open { display:flex; }
+        .mobile-menu a { color:var(--text); text-decoration:none; font-size:20px; font-weight:600; padding:12px 32px; border-radius:12px; transition:all 0.3s; }
+        .mobile-menu a:hover { background:rgba(255,94,0,0.08); color:var(--primary); }
+        .mobile-close { position:absolute; top:16px; right:24px; background:none; border:none; color:var(--text); font-size:28px; cursor:pointer; }
+
+        /* === RESPONSIVE === */
+        @media(max-width:1024px) {
+            .cat-grid { grid-template-columns:repeat(3,1fr); }
+            .feat-grid { grid-template-columns:repeat(2,1fr); }
+        }
+        @media(max-width:768px) {
+            nav { padding:12px 16px; }
+            .nav-links { display:none; }
+            .nav-toggle { display:block; }
+            .cat-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+            .cat-card { aspect-ratio:2/3; }
+            .feat-grid { grid-template-columns:1fr; }
+            .hero { padding:110px 20px 60px; }
+            .hero h1 { letter-spacing:-1px; }
+            .stats-container { gap:10px; }
+            .stat-box { min-width:120px; padding:20px 14px; }
+            .request-box { padding:36px 24px; }
+            .form-row { grid-template-columns:1fr; }
+            .dl-box { padding:40px 24px; }
+        }
+        @media(max-width:480px) {
+            .hero-actions { flex-direction:column; align-items:center; width:100%; }
+            .btn-primary, .btn-ghost { width:100%; max-width:300px; justify-content:center; }
+            .cat-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+            .cat-card .cat-content { padding:16px 14px; }
+            .cat-card h3 { font-size:15px; }
+            .cat-card .cat-icon { width:36px; height:36px; font-size:15px; margin-bottom:8px; }
+            .stats-container { flex-direction:column; align-items:center; }
+            .stat-box { width:100%; max-width:280px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="bg-orb bg-orb-1"></div>
-<div class="bg-orb bg-orb-2"></div>
-<div class="bg-orb bg-orb-3"></div>
+<div class="bg-noise"></div>
+<div class="bg-gradient"></div>
 
-<nav>
-    <a href="#" class="nav-brand"><i class="fas fa-fire"></i><span>Fire TV</span></a>
-    <a href="#download" class="nav-download"><i class="fas fa-download"></i><span>Descargar</span></a>
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#" class="nav-brand">
+        <span class="logo-fire">🔥</span>
+        <span>Fire TV</span>
+    </a>
+    <div class="nav-links">
+        <a href="#contenido">Contenido</a>
+        <a href="#funciones">Funciones</a>
+        <a href="#solicitar">Solicitar</a>
+        <a href="#descargar" class="nav-cta"><i class="fas fa-download"></i> Descargar</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menú"><i class="fas fa-bars"></i></button>
 </nav>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
+    <a href="#contenido" onclick="toggleMenu()">Contenido</a>
+    <a href="#funciones" onclick="toggleMenu()">Funciones</a>
+    <a href="#solicitar" onclick="toggleMenu()">Solicitar</a>
+    <a href="#descargar" onclick="toggleMenu()">Descargar</a>
+</div>
+
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-badge"><div class="dot"></div>Disponible ahora</div>
-    <h1>Tu televisión<br><span class="highlight">sin límites</span></h1>
-    <p>Canales de TV en vivo de todo el mundo, completamente gratis. Sin suscripciones, sin complicaciones.</p>
-    <div class="hero-buttons">
-        <a href="#download" class="btn-main"><i class="fab fa-android"></i>Descargar APK</a>
-        <a href="#features" class="btn-secondary"><i class="fas fa-play-circle"></i>Conoce más</a>
+    <div class="hero-tag"><div class="pulse-dot"></div> Versión 1.4 disponible</div>
+    <h1>Todo tu entretenimiento<br><span class="gradient-text">en un solo lugar</span></h1>
+    <p class="hero-sub">TV en vivo, películas, series, anime, doramas, radio y más. Todo gratis, sin suscripciones.</p>
+    <div class="hero-actions">
+        <a href="#descargar" class="btn-primary"><i class="fab fa-android"></i> Descargar APK</a>
+        <a href="#contenido" class="btn-ghost"><i class="fas fa-th-large"></i> Ver contenido</a>
+    </div>
+    <div class="hero-scroll">
+        <a href="#contenido"><span>Explorar</span><i class="fas fa-chevron-down"></i></a>
     </div>
 </section>
 
-<section class="features" id="features">
-    <div class="features-grid">
-        <div class="feature-card"><div class="feature-icon"><i class="fas fa-globe-americas"></i></div><h3>Canales internacionales</h3><p>Accede a canales de múltiples países organizados por región. Siempre hay algo nuevo para ver.</p></div>
-        <div class="feature-card"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h3>Streaming instantáneo</h3><p>Reproducción rápida y fluida. Solo toca un canal y comienza a disfrutar en segundos.</p></div>
-        <div class="feature-card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><h3>Seguro y confiable</h3><p>Contenido protegido y actualizaciones constantes para la mejor experiencia.</p></div>
-        <div class="feature-card"><div class="feature-icon"><i class="fas fa-mobile-alt"></i></div><h3>Diseño optimizado</h3><p>Interfaz moderna y fácil de usar. Pensada para que encuentres lo que quieres rápido.</p></div>
+<!-- CONTENT CATEGORIES -->
+<section class="categories" id="contenido">
+    <div class="section-header reveal">
+        <span class="label">Catálogo</span>
+        <h2>¿Qué quieres ver hoy?</h2>
+        <p>Explora nuestras categorías de contenido disponibles dentro de la app.</p>
+    </div>
+    <div class="cat-grid">
+        <div class="cat-card reveal">
+            <div class="cat-bg cat-tv"></div>
+            <div class="cat-overlay"></div>
+            <div class="cat-content">
+                <div class="cat-icon"><i class="fas fa-satellite-dish"></i></div>
+                <h3>TV en Vivo</h3>
+                <p>Canales internacionales organizados por país, 24/7.</p>
+            </div>
+        </div>
+        <div class="cat-card reveal">
+            <div class="cat-bg cat-movies"></div>
+            <div class="cat-overlay"></div>
+            <div class="cat-content">
+                <div class="cat-icon"><i class="fas fa-film"></i></div>
+                <h3>Películas</h3>
+                <p>Estrenos y clásicos para todos los gustos.</p>
+            </div>
+        </div>
+        <div class="cat-card reveal">
+            <div class="cat-bg cat-series"></div>
+            <div class="cat-overlay"></div>
+            <div class="cat-content">
+                <div class="cat-icon"><i class="fas fa-tv"></i></div>
+                <h3>Series</h3>
+                <p>Temporadas completas de tus series favoritas.</p>
+            </div>
+        </div>
+        <div class="cat-card reveal">
+            <div class="cat-bg cat-anime"></div>
+            <div class="cat-overlay"></div>
+            <div class="cat-content">
+                <div class="cat-icon"><i class="fas fa-dragon"></i></div>
+                <h3>Anime</h3>
+                <p>Los mejores títulos del anime japonés.</p>
+            </div>
+        </div>
+        <div class="cat-card reveal">
+            <div class="cat-bg cat-doramas"></div>
+            <div class="cat-overlay"></div>
+            <div class="cat-content">
+                <div class="cat-icon"><i class="fas fa-heart"></i></div>
+                <h3>Doramas</h3>
+                <p>Drama coreano, japonés y asiático.</p>
+            </div>
+        </div>
+        <div class="cat-card reveal">
+            <div class="cat-bg cat-radio"></div>
+            <div class="cat-overlay"></div>
+            <div class="cat-content">
+                <div class="cat-icon"><i class="fas fa-broadcast-tower"></i></div>
+                <h3>Radio</h3>
+                <p>Emisoras en vivo de múltiples países.</p>
+            </div>
+        </div>
     </div>
 </section>
 
-<section class="stats-section">
-    <div class="stats-row">
-        <div class="stat-item"><div class="number">100+</div><div class="label">Canales en vivo</div></div>
-        <div class="stat-item"><div class="number">20+</div><div class="label">Países disponibles</div></div>
-        <div class="stat-item"><div class="number">24/7</div><div class="label">Siempre activo</div></div>
+<!-- FEATURES -->
+<section class="features" id="funciones">
+    <div class="section-header reveal">
+        <span class="label">Funciones</span>
+        <h2>Diseñada para ti</h2>
+        <p>Todo lo que necesitas en una app rápida, confiable y fácil de usar.</p>
+    </div>
+    <div class="feat-grid">
+        <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Reproducción instantánea</h3>
+            <p>Toca y reproduce. Streaming fluido con detección automática de formato.</p>
+        </div>
+        <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-globe-americas"></i></div>
+            <h3>Contenido mundial</h3>
+            <p>Canales y contenido de más de 20 países, organizados por región.</p>
+        </div>
+        <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-mobile-alt"></i></div>
+            <h3>Móvil y Smart TV</h3>
+            <p>Compatible con celulares Android y televisores inteligentes.</p>
+        </div>
+        <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-hand-pointer"></i></div>
+            <h3>Contenido a la carta</h3>
+            <p>Solicita el canal, película o serie que quieras y lo agregamos por ti.</p>
+        </div>
+        <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-sync-alt"></i></div>
+            <h3>Actualizaciones constantes</h3>
+            <p>Nuevo contenido y mejoras cada semana con aviso automático.</p>
+        </div>
+        <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Segura y ligera</h3>
+            <p>Aplicación liviana, sin malware. Descarga directa desde GitHub.</p>
+        </div>
     </div>
 </section>
 
-<section class="cta-section" id="download">
-    <div class="cta-box">
+<!-- STATS -->
+<section class="stats">
+    <div class="stats-container">
+        <div class="stat-box reveal"><div class="num">100+</div><div class="txt">Canales en vivo</div></div>
+        <div class="stat-box reveal"><div class="num">50+</div><div class="txt">Películas</div></div>
+        <div class="stat-box reveal"><div class="num">20+</div><div class="txt">Países</div></div>
+        <div class="stat-box reveal"><div class="num">24/7</div><div class="txt">Siempre activo</div></div>
+    </div>
+</section>
+
+<!-- REQUEST CONTENT -->
+<section class="request" id="solicitar">
+    <div class="request-container">
+        <div class="section-header reveal">
+            <span class="label">A la carta</span>
+            <h2>Pide tu contenido</h2>
+            <p>¿No encuentras algo? Solicítalo y lo agregamos a la app.</p>
+        </div>
+        <div class="request-box reveal">
+            <form class="request-form" id="requestForm" onsubmit="submitRequest(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tu nombre</label>
+                        <input type="text" placeholder="Ej: Carlos" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de contenido</label>
+                        <select required>
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option>Canal de TV</option>
+                            <option>Película</option>
+                            <option>Serie</option>
+                            <option>Anime</option>
+                            <option>Dorama</option>
+                            <option>Radio</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>¿Qué contenido deseas?</label>
+                    <input type="text" placeholder="Ej: Canal RCN Colombia, Película Inception..." required>
+                </div>
+                <div class="form-group">
+                    <label>Detalles adicionales <span style="color:var(--text3)">(opcional)</span></label>
+                    <textarea rows="3" placeholder="País, idioma, temporada, o cualquier información útil..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Enviar solicitud</button>
+                <p class="form-note">Revisamos todas las solicitudes y agregamos el contenido lo antes posible.</p>
+            </form>
+            <div id="formSuccess" style="display:none;text-align:center;padding:32px 0;">
+                <i class="fas fa-check-circle" style="font-size:48px;color:var(--primary);margin-bottom:16px;display:block;"></i>
+                <h3 style="font-size:20px;margin-bottom:8px;">¡Solicitud enviada!</h3>
+                <p style="color:var(--text2);font-size:14px;">Revisaremos tu pedido y lo agregaremos pronto.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="descargar">
+    <div class="dl-box reveal">
         <h2>Descarga <span style="color:var(--primary)">Fire TV</span> ahora</h2>
-        <p>Disponible para Android. Descarga el APK directamente e instálalo en tu dispositivo.</p>
-        <a href="https://github.com/CorpSRTony/firetv/releases/latest/download/FireTV.apk" class="btn-main" style="display:inline-flex;margin:0 auto">
-            <i class="fas fa-download"></i>Descargar última versión
+        <p>Disponible para Android. Descarga el APK directamente e instálalo en segundos.</p>
+        <a href="https://github.com/CorpSRTony/firetv/releases/latest/download/FireTV.apk" class="btn-primary" style="display:inline-flex;margin:0 auto;">
+            <i class="fas fa-download"></i> Descargar última versión
         </a>
-        <p style="margin-top:20px;font-size:12px;color:var(--text2)"><i class="fas fa-info-circle"></i> Versión actual: <strong>1.3</strong></p>
+        <div class="dl-platforms">
+            <span class="dl-chip"><i class="fab fa-android"></i> Android</span>
+            <span class="dl-chip"><i class="fas fa-tv"></i> Smart TV</span>
+            <span class="dl-chip"><i class="fas fa-box"></i> TV Box</span>
+        </div>
+        <p class="version-tag"><i class="fas fa-info-circle"></i> Versión actual: <strong>1.4</strong></p>
     </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-    <div class="social">
+    <div class="footer-social">
         <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
         <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
         <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
     </div>
     <p>&copy; 2026 Fire TV. Todos los derechos reservados.</p>
-    <div class="dev-tag"><i class="fas fa-code"></i> Desarrollado por CorpSRTony</div>
+    <div class="dev-badge"><i class="fas fa-code"></i> Desarrollado por CorpSRTony</div>
 </footer>
 
 <script>
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});});});
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
-document.querySelectorAll('.feature-card,.stat-item,.cta-box').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='all 0.6s ease';observer.observe(el);});
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t) t.scrollIntoView({behavior:'smooth'});
+    });
+});
+
+// Nav scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Mobile menu
+function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Reveal on scroll
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if(e.isIntersecting) { e.target.classList.add('active'); }
+    });
+}, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form submit (visual only — no backend)
+function submitRequest(e) {
+    e.preventDefault();
+    document.getElementById('requestForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+}
 </script>
+
 </body>
 </html>
